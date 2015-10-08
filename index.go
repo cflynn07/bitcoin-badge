@@ -2,12 +2,29 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there!")
+	// https://golang.org/pkg/net/http/
+	resp, err := http.Get("https://bitcoin.toshi.io/api/v0/blocks")
+	if err != nil {
+		fmt.Fprintf(w, "Can not fetch recent blocks from bitcoin.toshi.io")
+	}
+	// https://bitcoin.toshi.io/api/v0/blocks
+	// Pushes function call onto a list, this list of saved calls is
+	// executed after surrounding function returns
+	defer resp.Body.Close() // to be done after handler returns
+	body, err := ioutil.ReadAll(resp.Body)
+
+	s := bytes.NewBuffer(body).String()
+
+	// body is a byte array, must convert to string
+	// http://stackoverflow.com/questions/14230145/what-is-the-best-way-to-convert-byte-array-to-string
+	fmt.Fprintf(w, s)
 }
 
 /**
