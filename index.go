@@ -10,11 +10,11 @@ import (
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	// https://golang.org/pkg/net/http/
-	resp, err := http.Get("https://bitcoin.toshi.io/api/v0/blocks")
+	// https://toshi.io/docs/#unconfirmed-transactions
+	resp, err := http.Get("https://bitcoin.toshi.io/api/v0/addresses/16jbpwYG79qN5f9kLVhXMLLRAoeEEy24KM")
 	if err != nil {
 		fmt.Fprintf(w, "Can not fetch recent blocks from bitcoin.toshi.io")
 	}
-	// https://bitcoin.toshi.io/api/v0/blocks
 	// Pushes function call onto a list, this list of saved calls is
 	// executed after surrounding function returns
 	defer resp.Body.Close() // to be done after handler returns
