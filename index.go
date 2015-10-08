@@ -5,13 +5,22 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	// Equivalent of console.log?
+	log.Print("test")
+
 	// https://golang.org/pkg/net/http/
 	// https://toshi.io/docs/#unconfirmed-transactions
-	resp, err := http.Get("https://bitcoin.toshi.io/api/v0/addresses/16jbpwYG79qN5f9kLVhXMLLRAoeEEy24KM")
+
+	// https://golang.org/pkg/net/http/#Request
+	// https://golang.org/pkg/net/url/
+	// http.Request Struct contains URL key
+	//   http.Request.URL
+	resp, err := http.Get("https://bitcoin.toshi.io/api/v0/addresses/" + r.URL.Path)
 	if err != nil {
 		fmt.Fprintf(w, "Can not fetch recent blocks from bitcoin.toshi.io")
 	}
