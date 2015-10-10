@@ -57,6 +57,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	// How to log structs to console
 	// http://stackoverflow.com/a/24512194/480807
+	// NOTE: output appears as: (why?)
+	//   {hash: balance: received: sent:}
 	fmt.Printf("%+v\n", av)
 
 	s := bytes.NewBuffer(body).String()
