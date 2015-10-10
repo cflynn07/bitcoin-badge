@@ -113,6 +113,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("copied slice", slice2)
 
 	fmt.Println("output sub-slice", slice2[2:4])
+	fmt.Println("output slice from 2 to end", slice[2:])
+
+	// single line delcaration and initialization
+	slice3 := []string{"x", "y", "z"}
+	fmt.Println("slice 3!", slice3)
 
 	s := bytes.NewBuffer(body).String()
 
