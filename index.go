@@ -130,6 +130,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("nested slice structure example", twoD2)
 
+	//Go compiler will count elements when you init an array
+	sampleArr := [...]string{"One", "two", "three"}
+	fmt.Println("sampleArr", sampleArr)
+
 	s := bytes.NewBuffer(body).String()
 
 	// body is a byte array, must convert to string
