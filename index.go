@@ -3,6 +3,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -37,6 +38,25 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "error")
 	}
 
+	//Extracting JSON
+	// To pluck specific keys, use predefined Struct type with
+	// specific keys
+	type AddressValues struct {
+		hash     string
+		balance  string
+		received string
+		sent     string
+	}
+	var av AddressValues
+	err2 := json.Unmarshal(body, av)
+	if err2 != nil {
+		fmt.Fprintf(w, "error2")
+	}
+
+	// How to log structs to console
+	// http://stackoverflow.com/a/24512194/480807
+	fmt.Printf("%+v\n", av)
+
 	s := bytes.NewBuffer(body).String()
 
 	// body is a byte array, must convert to string
@@ -46,7 +66,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 /**
  *
- */
+j*/
 func main() {
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
