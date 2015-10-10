@@ -119,6 +119,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	slice3 := []string{"x", "y", "z"}
 	fmt.Println("slice 3!", slice3)
 
+	// Trivial example of multi-dimensional, variable length slice
+	twoD2 := make([][]int, 3)
+	for i := 0; i < 3; i++ {
+		innerLen := i + 1
+		twoD2[i] = make([]int, innerLen)
+		for k := 0; k < innerLen; k++ {
+			twoD2[i][k] = i + k
+		}
+	}
+	fmt.Println("nested slice structure example", twoD2)
+
 	s := bytes.NewBuffer(body).String()
 
 	// body is a byte array, must convert to string
