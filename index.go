@@ -49,6 +49,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "Can not fetch recent blocks from bitcoin.toshi.io")
 	}
+
 	// Pushes function call onto a list, this list of saved calls is
 	// executed after surrounding function returns
 	defer resp.Body.Close() // to be done after handler returns
@@ -64,6 +65,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		log.Print(err2)
 		return
 	}
+
 	// How to log structs to console
 	// http://stackoverflow.com/a/24512194/480807
 	// NOTE: output appears as: (why?)
@@ -80,6 +82,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(k, "is int", vv) //No output
 		}
 	}
+
+	a := [5]int{1, 2, 3, 4, 5}
+	fmt.Println("a is an array of length ", len(a))
 
 	s := bytes.NewBuffer(body).String()
 
