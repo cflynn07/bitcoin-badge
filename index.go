@@ -98,6 +98,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// Slices
 	slice := make([]string, 3)
 	fmt.Println("empty slice:", slice)
+	// builtin "append" for slices, benefit over arrays
+	slice[0] = "a"
+	slice[1] = "b"
+	slice[2] = "c"
+	slice = append(slice, "d")
+	slice = append(slice, "e")
+	fmt.Println("slice with data: ", slice)
+	fmt.Println("slice length", len(slice))
 
 	s := bytes.NewBuffer(body).String()
 
