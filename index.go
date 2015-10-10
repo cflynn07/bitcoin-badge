@@ -38,37 +38,18 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "error")
 	}
 
-	//Extracting JSON
-	// To pluck specific keys, use predefined Struct type with
-	// specific keys
-	type AddressValues struct {
-		hash     string
-		balance  string
-		received string
-		sent     string
-	}
-	var av AddressValues
+	var av interface{}
 	err2 := json.Unmarshal(body, &av)
 	if err2 != nil {
 		fmt.Fprintf(w, "error2")
 		log.Print(err2)
 		return
 	}
-
 	// How to log structs to console
 	// http://stackoverflow.com/a/24512194/480807
 	// NOTE: output appears as: (why?)
 	//   {hash: balance: received: sent:}
 	fmt.Printf("%+v\n", av)
-	log.Print(av)
-
-	//Using json.NewDecoder
-	// http://stackoverflow.com/a/31129967/480807
-	type AddressValues2 struct{}
-	var target AddressValues2
-	json.NewDecoder(r.Body).Decode(target)
-	fmt.Printf("%+v\n", target) //Does not work
-	log.Print(av)               //Does not work
 
 	s := bytes.NewBuffer(body).String()
 
