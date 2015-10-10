@@ -1,6 +1,10 @@
-// https://golang.org/doc/articles/wiki/
+/*
+Every Go package should have a block comment at the top of the file. godoc
+will extract for documentation.
+*/
 package main
 
+// https://golang.org/doc/articles/wiki/
 import (
 	"bytes"
 	"encoding/json"
