@@ -48,7 +48,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		sent     string
 	}
 	var av AddressValues
-	err2 := json.Unmarshal(body, av)
+	err2 := json.Unmarshal(body, &av)
 	if err2 != nil {
 		fmt.Fprintf(w, "error2")
 		log.Print(err2)
