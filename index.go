@@ -94,6 +94,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("2d: ", twoD)
 
+	// https://gobyexample.com/slices
+	// Slices
+	slice := make([]string, 3)
+	fmt.Println("empty slice:", slice)
+
 	s := bytes.NewBuffer(body).String()
 
 	// body is a byte array, must convert to string
