@@ -51,6 +51,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	err2 := json.Unmarshal(body, av)
 	if err2 != nil {
 		fmt.Fprintf(w, "error2")
+		return
 	}
 
 	// How to log structs to console
