@@ -112,6 +112,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	copy(slice2, slice)
 	fmt.Println("copied slice", slice2)
 
+	fmt.Println("output sub-slice", slice2[2:4])
+
 	s := bytes.NewBuffer(body).String()
 
 	// body is a byte array, must convert to string
