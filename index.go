@@ -26,6 +26,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// https://golang.org/pkg/net/url/
 	// http.Request Struct contains URL key
 	//   http.Request.URL
+	/*
+		{
+			"hash":"1FfmbHfnpaZjKFvyi1okTjJJusN455paPH",
+			"balance":3416228,
+			"received":14434157021163,
+			"sent":14434153604935,
+			"unconfirmed_received":0,
+			"unconfirmed_sent":0,
+			"unconfirmed_balance":0
+		}
+	*/
 	resp, err := http.Get("https://bitcoin.toshi.io/api/v0/addresses" + r.URL.Path)
 	if err != nil {
 		fmt.Fprintf(w, "Can not fetch recent blocks from bitcoin.toshi.io")
@@ -50,6 +61,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// NOTE: output appears as: (why?)
 	//   {hash: balance: received: sent:}
 	fmt.Printf("%+v\n", av)
+
+	// To access, use type assertion
+	m := av.(map[string]interface{})
+	for k, v := range m {
+		switch vv := v.(type) {
+		case string:
+			fmt.Println(k, "is string", vv)
+		case int:
+			fmt.Println(k, "is int", vv) //No output
+		}
+	}
 
 	s := bytes.NewBuffer(body).String()
 
