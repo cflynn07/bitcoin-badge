@@ -13,6 +13,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// Equivalent of console.log?
 	log.Print(r.URL.Path)
 
+	if r.URL.Path == "/" {
+		fmt.Fprintf(w, "Missing address")
+		return
+	}
+
 	// https://golang.org/pkg/net/http/
 	// https://toshi.io/docs/#unconfirmed-transactions
 
@@ -28,6 +33,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// executed after surrounding function returns
 	defer resp.Body.Close() // to be done after handler returns
 	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Fprintf(w, "error")
+	}
 
 	s := bytes.NewBuffer(body).String()
 
