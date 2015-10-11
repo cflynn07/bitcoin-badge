@@ -136,8 +136,27 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	s := bytes.NewBuffer(body).String()
 
+	//Define a function in Go with unknown number of variables?
+	// http://stackoverflow.com/questions/19238143/does-golang-support-arguments
+	appendByte := func(slice []byte, data ...byte) []byte {
+		m := len(slice)
+		n := m + len(data)
+		if n > cap(slice) {
+			newSlice := make([]byte, (n+1)*2) // n+1 exactly what we need, *2 to double it
+			copy(newSlice, slice)
+			slice = newSlice
+		}
+		slice = slice[0:n]
+		copy(slice[m:n], data)
+		return slice
+	}
+
+	p := []byte{2, 3, 5}
+	p = appendByte(p, 7, 9, 11)
+	fmt.Println("output of appendByte", p)
+
 	// body is a byte array, must convert to string
-	// http://stackoverflow.com/questions/14230145/what-is-the-best-way-to-convert-byte-array-to-string
+	// http://stackoverflow.com/questions/14230145/what-is-the-best-way-to-convert-byte-array-to-stringp
 	fmt.Fprintf(w, s)
 }
 
