@@ -194,6 +194,27 @@ func aFactoryMethod() *Cray {
 	}
 }
 
+// Add examples of composition
+type Dude struct {
+	Name string
+}
+
+func (p *Dude) sayHello() {
+	fmt.Println("Hey I'm the dude")
+}
+
+// now compose with King
+type King struct {
+	*Dude
+	Power int
+}
+
+// instance of King with dude methods available
+var dasKing King = King{
+	&Dude{"Timmmmy"},
+	50,
+}
+
 /**
  *
  */
@@ -201,6 +222,9 @@ func main() {
 	if len(os.Args) > 1 {
 		log.Print(os.Args[1])
 	}
+
+	dasKing.sayHello()
+
 	// use the blank identifier, value not actually assigned
 	_, a := nonExportReturnValFunction()
 	log.Print("a: ", a)
