@@ -165,6 +165,18 @@ func nonExportReturnValFunction() (int, int) {
 	return 5, 6
 }
 
+// Go not object-oriented. No objects or inheritance. No polymorphism or overloading
+// composition over inheritance
+type Cray struct {
+	Name string
+	Age  int
+}
+
+// Associating a method with a structure (16)
+func (c *Cray) incAge() {
+	c.Age = c.Age + 1
+}
+
 /**
  *
  */
@@ -176,12 +188,6 @@ func main() {
 	_, a := nonExportReturnValFunction()
 	log.Print("a: ", a)
 
-	// Go not object-oriented. No objects or inheritance. No polymorphism or overloading
-	// composition over inheritance
-	type Cray struct {
-		Name string
-		Age  int
-	}
 	k := Cray{
 		Name: "Thomas",
 		Age:  100,
@@ -207,8 +213,13 @@ func main() {
 	copyFn(k)
 	log.Print("Has k.Name changed? (no) ", k.Name)
 
-	refFn(&k)
+	refFn(&k) // & is the "address of" operator
 	log.Print("Has k.Name changed? (yes) ", k.Name)
+
+	log.Print("How old is k? ", k.Age)
+
+	k.incAge()
+	log.Print("How old is k now? ", k.Age)
 
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
