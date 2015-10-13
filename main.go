@@ -165,7 +165,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
  *
  */
 func main() {
-	log.Print(os.Args)
+	if len(os.Args) > 1 {
+		log.Print(os.Args[1])
+	}
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
