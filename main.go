@@ -168,8 +168,9 @@ func nonExportReturnValFunction() (int, int) {
 // Go not object-oriented. No objects or inheritance. No polymorphism or overloading
 // composition over inheritance
 type Cray struct {
-	Name string
-	Age  int
+	Name    string
+	Age     int
+	DadCray *Cray
 }
 
 // Associating a method with a structure (16)
@@ -185,6 +186,11 @@ func aFactoryMethod() *Cray {
 	return &Cray{
 		"Johnny",
 		5,
+		&Cray{
+			"Sammy",
+			6,
+			nil,
+		},
 	}
 }
 
@@ -205,7 +211,15 @@ func main() {
 	}
 
 	//declare new instance without field name declarations, rely on order of delared fields
-	k = Cray{"Turle", 33}
+	k = Cray{
+		"Turle",
+		33,
+		&Cray{
+			"NinjaTurtle",
+			99,
+			nil,
+		},
+	}
 
 	log.Print("Cray Name ", k.Name)
 	log.Print("Cray Age ", k.Age)
@@ -240,6 +254,10 @@ func main() {
 	log.Print("k2:")
 	log.Print(k2.Name)
 	log.Print(k2.Age)
+
+	log.Print("what about k2's dad?")
+	log.Print(k2.DadCray.Name)
+	log.Print(k2.DadCray.Age)
 
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
