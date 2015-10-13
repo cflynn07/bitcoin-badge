@@ -177,6 +177,10 @@ func (c *Cray) incAge() {
 	c.Age = c.Age + 1
 }
 
+func (c *Cray) makeMary() {
+	c.Name = "Mary"
+}
+
 /**
  *
  */
@@ -220,6 +224,10 @@ func main() {
 
 	k.incAge()
 	log.Print("How old is k now? ", k.Age)
+
+	log.Print("what is k's name? ", k.Name)
+	k.makeMary()
+	log.Print("what is k's name now? ", k.Name)
 
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
