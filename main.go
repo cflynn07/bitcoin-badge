@@ -224,6 +224,8 @@ func main() {
 	}
 
 	dasKing.sayHello()
+	// even though I didn't give the reference to Dude a name, the complier did
+	dasKing.Dude.sayHello()
 
 	// use the blank identifier, value not actually assigned
 	_, a := nonExportReturnValFunction()
