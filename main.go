@@ -176,6 +176,17 @@ func main() {
 	_, a := nonExportReturnValFunction()
 	log.Print("a: ", a)
 
+	type Cray struct {
+		Name string
+		Age  int
+	}
+	k := Cray{
+		Name: "Thomas",
+		Age:  100,
+	}
+	log.Print("Cray Name ", k.Name)
+	log.Print("Cray Age ", k.Age)
+
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
