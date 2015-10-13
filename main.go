@@ -176,6 +176,8 @@ func main() {
 	_, a := nonExportReturnValFunction()
 	log.Print("a: ", a)
 
+	// Go not object-oriented. No objects or inheritance. No polymorphism or overloading
+	// composition over inheritance
 	type Cray struct {
 		Name string
 		Age  int
