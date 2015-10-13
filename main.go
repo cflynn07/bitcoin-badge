@@ -161,6 +161,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, s)
 }
 
+func nonExportReturnValFunction() (int, int) {
+	return 5, 6
+}
+
 /**
  *
  */
@@ -168,6 +172,10 @@ func main() {
 	if len(os.Args) > 1 {
 		log.Print(os.Args[1])
 	}
+	// use the blank identifier, value not actually assigned
+	_, a := nonExportReturnValFunction()
+	log.Print("a: ", a)
+
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
