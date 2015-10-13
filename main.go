@@ -193,6 +193,23 @@ func main() {
 	log.Print("Cray Name ", k.Name)
 	log.Print("Cray Age ", k.Age)
 
+	// Go always passes by values not reference (opposite of JavaScript)
+	copyFn := func(v Cray) {
+		// Only mutates a copy, not original
+		v.Name = "COPY"
+	}
+
+	refFn := func(v *Cray) {
+		//Mutates
+		v.Name = "Reference!"
+	}
+
+	copyFn(k)
+	log.Print("Has k.Name changed? (no) ", k.Name)
+
+	refFn(&k)
+	log.Print("Has k.Name changed? (yes) ", k.Name)
+
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
