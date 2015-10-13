@@ -186,6 +186,10 @@ func main() {
 		Name: "Thomas",
 		Age:  100,
 	}
+
+	//declare new instance without field name declarations, rely on order of delared fields
+	k = Cray{"Turle", 33}
+
 	log.Print("Cray Name ", k.Name)
 	log.Print("Cray Age ", k.Age)
 
