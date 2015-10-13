@@ -181,6 +181,13 @@ func (c *Cray) makeMary() {
 	c.Name = "Mary"
 }
 
+func aFactoryMethod() *Cray {
+	return &Cray{
+		"Johnny",
+		5,
+	}
+}
+
 /**
  *
  */
@@ -228,6 +235,11 @@ func main() {
 	log.Print("what is k's name? ", k.Name)
 	k.makeMary()
 	log.Print("what is k's name now? ", k.Name)
+
+	k2 := aFactoryMethod()
+	log.Print("k2:")
+	log.Print(k2.Name)
+	log.Print(k2.Age)
 
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
