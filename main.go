@@ -285,6 +285,17 @@ func main() {
 	log.Print(k2.DadCray.Name)
 	log.Print(k2.DadCray.Age)
 
+	// Range block scope? Opposite of JS without let
+	sampleArray := []string{
+		"a",
+		"b",
+		"c",
+	}
+	for index, value := range sampleArray {
+		log.Print("logging ", value, " ", index)
+	}
+	// log.Print(value) compiler says no
+
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
