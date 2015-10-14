@@ -296,6 +296,10 @@ func main() {
 	}
 	// log.Print(value) compiler says no
 
+	// neat syntax to swap two values in a slice
+	sampleArray[0], sampleArray[len(sampleArray)-1] = sampleArray[len(sampleArray)-1], sampleArray[0]
+	log.Print("new Array ", sampleArray)
+
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
