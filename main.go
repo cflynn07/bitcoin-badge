@@ -18,6 +18,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +56,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// Pushes function call onto a list, this list of saved calls is
 	// executed after surrounding function returns
 	defer resp.Body.Close() // to be done after handler returns
-	body, err := ioutil.ReadAll(resp.Body)
+	// body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Fprintf(w, "error")
 	}
@@ -72,7 +73,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		log.Print("ioutil.WriteFile error", err)
 	}
 
-	fmt.Fprintf(w, string(body))
+	w.Header().Set("Content-Type", "image/jpeg")
+	w.Header().Set("Content-Length", strconv.Itoa(len(buffBytes)))
+	w.Write(buffBytes)
 	//s := bytes.NewBuffer(body).String()
 
 	// body is a byte array, must convert to string
