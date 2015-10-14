@@ -300,6 +300,16 @@ func main() {
 	sampleArray[0], sampleArray[len(sampleArray)-1] = sampleArray[len(sampleArray)-1], sampleArray[0]
 	log.Print("new Array ", sampleArray)
 
+	// quick map example
+	sampleMap := make(map[string]int)
+	sampleMap["Thomas"] = 44
+	value, exists := sampleMap["Thomas1"]
+	if !exists {
+		log.Print("ERROR Thomas does not exist")
+		return
+	}
+	log.Print("value ", value)
+
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
