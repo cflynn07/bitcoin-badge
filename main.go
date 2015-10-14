@@ -11,6 +11,7 @@ package main
 // https://golang.org/doc/articles/wiki/
 import (
 	"fmt"
+	"github.com/cflynn07/bitcoin-badge/db"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -63,6 +64,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, s)
 }
 func main() {
+
+	item := db.LoadItem(5)
+	log.Print("item ", item)
+
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
