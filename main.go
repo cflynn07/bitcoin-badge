@@ -21,6 +21,10 @@ import (
 	"strconv"
 )
 
+func init() {
+	log.Print("Go apparently has a notion of an init function")
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	// Equivalent of console.log?
 	log.Print(r.URL.Path)
