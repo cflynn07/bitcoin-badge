@@ -10,8 +10,11 @@ package main
 
 // https://golang.org/doc/articles/wiki/
 import (
+	"bytes"
 	"fmt"
 	"github.com/cflynn07/bitcoin-badge/db"
+	"image"
+	"image/jpeg"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -56,6 +59,19 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "error")
 	}
+
+	m := image.NewRGBA(image.Rect(0, 0, 100, 100))
+	buf := new(bytes.Buffer)
+	err = jpeg.Encode(buf, m, nil)
+	if err != nil {
+		log.Print("jpeg.Encode error", err)
+	}
+	buffBytes := buf.Bytes()
+	err = ioutil.WriteFile("./img.jpg", buffBytes, 0777)
+	if err != nil {
+		log.Print("ioutil.WriteFile error", err)
+	}
+
 	fmt.Fprintf(w, string(body))
 	//s := bytes.NewBuffer(body).String()
 
