@@ -19,6 +19,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"sync"
 )
 
 func init() {
@@ -86,7 +87,52 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// http://stackoverflow.com/questions/14230145/what-is-the-best-way-to-convert-byte-array-to-stringp
 	//fmt.Fprintf(w, s)
 }
+
+func testLocks() {
+	fmt.Println("about to test lock")
+	lock.Lock()
+	defer lock.Unlock()
+	counter++
+	fmt.Println("testLocks ", counter)
+}
+
+var counter int
+var lock sync.Mutex
+
 func main() {
+	counter = 0
+
+	/**
+	Results in output:
+
+	/g/s/g/c/bitcoin-badge git:master ❮❮❮ go run main.go                     ⏎ ✱
+	2015/10/15 22:06:51 Go apparently has a notion of an init function
+	about to test lock
+	about to test lock
+	testLocks  1
+	about to test lock
+	about to test lock
+	testLocks  2
+	about to test lock
+	about to test lock
+	about to test lock
+	testLocks  3
+	2015/10/15 22:06:51 item &{100}
+	testLocks  4
+	testLocks  5
+	testLocks  6
+	testLocks  7
+	about to test lock
+	about to test lock
+	testLocks  8
+	testLocks  9
+	about to test lock
+	testLocks  10
+
+	*/
+	for i := 0; i < 10; i++ {
+		go testLocks()
+	}
 
 	item := db.LoadItem(5)
 	log.Print("item ", item)
