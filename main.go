@@ -22,7 +22,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Print(out)
+	fmt.Fprint(w, string(out))
 }
 
 func main() {
