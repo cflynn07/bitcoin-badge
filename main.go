@@ -13,7 +13,7 @@ import (
 	"net/http"
 )
 
-func handler() {
+func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
