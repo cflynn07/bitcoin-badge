@@ -10,10 +10,19 @@ package main
 
 // https://golang.org/doc/articles/wiki/
 import (
+	"encoding/json"
+	"fmt"
+	"github.com/cflynn07/bitcoin-badge/guestbook"
 	"net/http"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	a := &guestbook.GuestBookEntry{1, "email@gmail.com", "Title1", "Content1"}
+	out, err := json.Marshal(a)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Print(out)
 }
 
 func main() {
