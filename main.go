@@ -31,9 +31,17 @@ func NameHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "hello "+vars["firstName"])
 }
 
+func PrefixHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "prefixed route handler, should match /prefix/prefix2")
+}
+
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/test", TestHandler)
 	r.HandleFunc("/name/{firstName}", NameHandler)
+
+	sub := r.PathPrefix("/prefix").Subrouter()
+	sub.HandleFunc("/prefix2", PrefixHandler)
+
 	http.ListenAndServe(":8080", r)
 }
