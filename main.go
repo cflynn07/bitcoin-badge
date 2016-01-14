@@ -27,7 +27,8 @@ func TestHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func NameHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "hello")
+	vars := mux.Vars(r)
+	fmt.Fprint(w, "hello "+vars["firstName"])
 }
 
 func main() {
