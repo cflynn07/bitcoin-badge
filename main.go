@@ -13,10 +13,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/cflynn07/bitcoin-badge/guestbook"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func TestHandler(w http.ResponseWriter, r *http.Request) {
 	a := &guestbook.GuestBookEntry{1, "email@gmail.com", "Title1", "Content1"}
 	out, err := json.Marshal(a)
 	if err != nil {
@@ -25,7 +26,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, string(out))
 }
 
+func NameHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "hello")
+}
+
 func main() {
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	r := mux.NewRouter()
+	r.HandleFunc("/test", TestHandler)
+	r.HandleFunc("/name/{firstName}", NameHandler)
+	http.ListenAndServe(":8080", r)
 }
