@@ -17,8 +17,19 @@ import (
 	"net/http"
 )
 
+func takesGuestBookEntry(gbe *guestbook.GuestBookEntry) {
+	// Will mutate because gbe is a pointer
+	gbe.Email = "hello@msn.com"
+}
+
 func TestHandler(w http.ResponseWriter, r *http.Request) {
-	a := &guestbook.GuestBookEntry{1, "email@gmail.com", "Title1", "Content1"}
+	a := &guestbook.GuestBookEntry{
+		1,
+		"email@gmail.com",
+		"Title1",
+		"Content1",
+	}
+	takesGuestBookEntry(a)
 	out, err := json.Marshal(a)
 	if err != nil {
 		panic(err)
